@@ -64,7 +64,7 @@ int main() {
 
       if (conn_fd > max_fd) max_fd = conn_fd;
 
-      if (ready_cnt == 1)
+      if (--ready_cnt <= 0)
         continue;  // 如果只有 listen_fd 有事件，则后续的 for 无需执行
     }
 
@@ -86,6 +86,8 @@ int main() {
       } else {
         sys_err("recv");
       }
+
+      if (--ready_cnt <= 0) break;
     }
   }
 
