@@ -41,6 +41,7 @@ int main() {
     rset = allset;
     int ready_cnt = select(max_fd + 1, &rset, NULL, NULL, NULL);
     if (ready_cnt < 0) sys_err("select");
+    if (ready_cnt == 0) continue;
 
     static char buf[BUFSIZ];
 
@@ -54,7 +55,6 @@ int main() {
       conn_fd =
           accept(listen_fd, (struct sockaddr *)&client_addr, &client_addr_len);
       if (conn_fd < 0) sys_err("accept");
-      if (conn_fd == 0) continue;
 
       printf("client: %s:%d\n",
              inet_ntop(AF_INET, &(client_addr.sin_addr), buf, INET_ADDRSTRLEN),
