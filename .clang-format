@@ -1,0 +1,6 @@
+---
+Language:        Cpp
+BasedOnStyle:  Google
+
+# 列限制（默认为80）
+ColumnLimit:     120
